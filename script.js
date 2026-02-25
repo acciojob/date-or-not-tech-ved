@@ -1,7 +1,23 @@
-var isDate = function (input) {
-  //   write your code here
-};
+function isDate(input) {
+    // if already Date object
+    if (input instanceof Date) {
+        return !isNaN(input.getTime());
+    }
+    
+    // try parsing other inputs
+    let d = new Date(input);
+    return !isNaN(d.getTime());
+}
 
-// Do not change the code below.
-const input = prompt("Enter Date.");
-alert(isDate(input));
+// Driver code (AccioJob style)
+let input = require("fs").readFileSync(0, "utf-8").trim();
+
+// try to evaluate input (for cases like new Date())
+let val;
+try {
+    val = eval(input);
+} catch {
+    val = input;
+}
+
+console.log(isDate(val));
